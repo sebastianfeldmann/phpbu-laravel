@@ -1,0 +1,34 @@
+{
+    "name": "phpbu/phpbu-laravel",
+    "description": "Laravel backup package - integrates phpbu with the laravel artisan command line tool",
+    "type": "library",
+    "keywords": [
+        "backup", "laravel"
+    ],
+    "homepage": "http://phpbu.de/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sebastian Feldmann",
+            "email": "sebastian@phpbu.de",
+            "role": "lead"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/sebastianfeldmann/phpbu-laravel/issues"
+    },
+    "autoload": {
+        "psr-4": {
+            "phpbu\\Laravel\\": "src/"
+        }
+    },
+    "require": {
+        "illuminate/support": "5.*",
+        "illuminate/console": "5.*"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}

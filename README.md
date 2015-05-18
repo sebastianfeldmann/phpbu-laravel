@@ -1,2 +1,2 @@
 # phpbu-laravel
-Laravel backup package - integrates php with laravel's artisan command line tool
+Laravel backup package - integrates phpbu with the laravel artisan command line tool
