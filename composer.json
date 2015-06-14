@@ -24,7 +24,8 @@
     },
     "require": {
         "illuminate/support": "5.*",
-        "illuminate/console": "5.*"
+        "illuminate/console": "5.*",
+        "phpbu/phpbu": "2.1.*"
     },
     "extra": {
         "branch-alias": {
