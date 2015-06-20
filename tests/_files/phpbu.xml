@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpbu xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="http://schema.phpbu.de/2.1/phpbu.xsd"
+       verbose="false">
+  <backups>
+    <backup name="mysql-test">
+      <source type="mysqldump">
+        <option name="user" value="root"/>
+        <option name="databases" value="test"/>
+      </source>
+      <target dirname="backup/mysql" filename="mysql-%Y%m%d-%H%i.sql"/>
+      <check type="sizemin" value="10B"/>
+      <cleanup type="Capacity">
+        <option name="size" value="100M"/>
+      </cleanup>
+    </backup>
+  </backups>
+</phpbu>
