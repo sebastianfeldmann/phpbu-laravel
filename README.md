@@ -6,7 +6,12 @@ Laravel backup package - integrates phpbu with the laravel artisan command line 
 [![Build Status](https://travis-ci.org/sebastianfeldmann/phpbu-laravel.svg?branch=master)](https://travis-ci.org/sebastianfeldmann/phpbu-laravel)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sebastianfeldmann/phpbu-laravel/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sebastianfeldmann/phpbu-laravel/?branch=master)
 
-## Install
+## Requirements
+    + PHP 5.5
+    + Laravel 5.*
+    + see phpbu requirements for more details
+
+## Installation
 
 Use composer to install the package.
 
