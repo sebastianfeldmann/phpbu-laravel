@@ -3,7 +3,8 @@ namespace phpbu\Laravel\Cmd;
 
 use Illuminate\Console\Command;
 use phpbu\App\Configuration as PhpbuConfig;
-use phpbu\App\Factory;
+use phpbu\App\Configuration\Loader\Factory as PhpbuConfigLoaderFactory;
+use phpbu\App\Factory as PhpbuFactory;
 use phpbu\App\Runner;
 use phpbu\Laravel\Configuration;
 use phpbu\Laravel\Configuration\Translator;
@@ -69,22 +70,24 @@ class Backup extends Command
      */
     public function fire()
     {
+        // check if a phpbu xml/json config file is configured
         $phpbuConfigFile = $this->configProxy->get('phpbu.phpbu');
-        // use a good old phpbu config file?
         if (!empty($phpbuConfigFile)) {
-            // dummy code
-            // TODO: use LoaderFactory to get the right config file loader to create a valid phpbu configuration
-            $configuration = new PhpbuConfig();
-
+            // load xml or json configurations
+            $configLoader  = PhpbuConfigLoaderFactory::createLoader($phpbuConfigFile);
+            $configuration = $configLoader->getConfiguration();
         } else {
-            Factory::register('sync', 'laravel-storage', '\\phpbu\\Laravel\\Backup\\Sync\\LaravelStorage');
+            // no phpbu config so translate the laravel settings
             $translator    = new Translator();
             $configuration = $translator->translate($this->configProxy);
+            // in laravel mode we sync everything using the Laravel Storage
+            PhpbuFactory::register('sync', 'laravel-storage', '\\phpbu\\Laravel\\Backup\\Sync\\LaravelStorage');
         }
 
-        // add the command printer for some output
+        // add a printer for some output
         $configuration->addLogger($this->createPrinter());
 
+        // finally execute the backup
         $result = $this->runner->run($configuration);
 
         return $result->wasSuccessful();
@@ -108,8 +111,8 @@ class Backup extends Command
     protected function getOptions()
     {
         return array(
-            array('phpbu-verbose', null, InputOption::VALUE_NONE, 'Output more verbose information.'),
-            array('phpbu-debug', null, InputOption::VALUE_NONE, 'Display debugging information during backup generation.'),
+            ['phpbu-verbose', null, InputOption::VALUE_NONE, 'Output more verbose information.'],
+            ['phpbu-debug', null, InputOption::VALUE_NONE, 'Display debugging information during backup generation.'],
         );
     }
 }
