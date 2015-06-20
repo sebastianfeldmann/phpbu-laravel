@@ -10,4 +10,6 @@ namespace phpbu\Laravel\Configuration;
  * @license    http://www.opensource.org/licenses/MIT The MIT License (MIT)
  * @link       http://phpbu.de/
  */
-class Exception extends \Exception {}
+class Exception extends \Exception
+{
+}
