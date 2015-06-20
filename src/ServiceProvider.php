@@ -1,10 +1,12 @@
 <?php
 namespace phpbu\Laravel;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider as ServiceProviderLaravel;
+
+use phpbu\Laravel\Configuration\Proxy;
 
 /**
- * Class PhpbuServiceProvider
+ * Class ServiceProvider
  *
  * @package    phpbu\Laravel
  * @author     Sebastian Feldmann <sebastian@phpbu.de>
@@ -12,7 +14,7 @@ use Illuminate\Support\ServiceProvider;
  * @license    http://www.opensource.org/licenses/MIT The MIT License (MIT)
  * @link       http://phpbu.de/
  */
-class PhpbuServiceProvider extends ServiceProvider
+class ServiceProvider extends ServiceProviderLaravel
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -27,24 +29,21 @@ class PhpbuServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes(
-            array(
-                __DIR__ . '/config/phpbu-config.php' => config_path('phpbu-config.php'),
-            )
+            [__DIR__ . '/phpbu.php' => config_path('phpbu.php')]
         );
     }
 
     /**
-     * Register the phpbu service provider.
+     * Register the phpbu commands.
      */
     public function register()
     {
-        $this->app['command.phpbu:backup'] = $this->app->share(
-            function ($app) {
-                return new Cmd\Backup();
-            }
-        );
+        $this->app->bind(Proxy::class, function ($app) {
+            return new Proxy($app['config']->all());
+        });
+
         $this->commands(
-            array('command.phpbu:backup')
+            Cmd\Backup::class
         );
     }
 
@@ -55,8 +54,8 @@ class PhpbuServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array(
-            'command.phpbu:backup',
-        );
+        return [
+            Proxy::class,
+        ];
     }
 }
