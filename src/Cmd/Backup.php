@@ -69,7 +69,6 @@ class Backup extends Command
      */
     public function fire()
     {
-        $configuration   = null;
         $phpbuConfigFile = $this->configProxy->get('phpbu.phpbu');
         // use a good old phpbu config file?
         if (!empty($phpbuConfigFile)) {
