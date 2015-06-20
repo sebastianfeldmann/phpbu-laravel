@@ -16,9 +16,21 @@ use phpbu\App\Configuration\Backup\Target;
 class Translator
 {
     /**
+     * Configuration Proxy
+     *
      * @var \phpbu\Laravel\Configuration\Proxy
      */
     private $proxy;
+
+    /**
+     * Configurable laravel backup types.
+     *
+     * @var array
+     */
+    private $types = [
+        'directories' => 'directoryConfigToBackup',
+        'databases'   => 'databaseConfigToBackup',
+    ];
 
     /**
      * Translates the laravel configuration to a phpbu configuration.
@@ -33,12 +45,18 @@ class Translator
         $configuration = new Configuration();
         $laravelPhpbu  = $this->proxy->get('phpbu');
 
-        foreach ($laravelPhpbu['directories'] as $dir) {
-            $configuration->addBackup($this->directoryConfigToBackup($dir));
-        }
+        // walk the the configured backups
+        foreach ($this->types as $type => $translationMethod) {
+            // create a phpbu backup config
+            foreach ($laravelPhpbu[$type] as $conf) {
+                $backup = $this->{$translationMethod}($conf);
+                $backup->setTarget($this->translateTarget($conf['target']));
 
-        foreach ($laravelPhpbu['databases'] as $db) {
-            $configuration->addBackup($this->databaseConfigToBackup($db));
+                $this->addSyncIfConfigured($backup, $conf);
+                $this->addCleanupIfConfigured($backup, $conf);
+
+                $configuration->addBackup($backup);
+            }
         }
 
         return $configuration;
@@ -63,16 +81,6 @@ class Translator
         if (isset($dir['source']['options'])) {
             array_merge($options, $dir['source']['options']);
         }
-
-        $backup->setSource(new Configuration\Backup\Source('tar', $options));
-
-        // build target config
-        $backup->setTarget($this->translateTarget($dir['target']));
-
-        // add sync configuration
-
-        // add cleanup configuration
-
         return $backup;
     }
 
@@ -102,35 +110,8 @@ class Translator
 
         $backup = new Configuration\Backup('db-' . $db['source']['connection'], false);
         $backup->setSource(new Configuration\Backup\Source('mysqldump', $options));
-        $backup->setTarget($this->translateTarget($db['target']));
-
-        // add sync configuration
-
-        // add cleanup configuration
 
         return $backup;
-    }
-
-    /**
-     * Translate the target configuration.
-     *
-     * @param  array $config
-     * @return Target
-     * @throws \Exception
-     */
-    public function translateTarget(array $config)
-    {
-        if (empty($config['dirname'])) {
-            throw new Exception('invalid target: dirname has to be configured');
-        }
-        if (empty($config['filename'])) {
-            throw new Exception('invalid target: filename has to be configured');
-        }
-        $dirname     = $config['dirname'];
-        $filename    = $config['filename'];
-        $compression = !empty($config['compression']) ? $config['compression'] : null;
-
-        return new Target($dirname, $filename, $compression);
     }
 
     /**
@@ -151,5 +132,68 @@ class Translator
             throw new Exception('Currently only MySQL databases are supported using the laravel config');
         }
         return $config;
+    }
+
+    /**
+     * Translate the target configuration.
+     *
+     * @param  array $config
+     * @return Target
+     * @throws \Exception
+     */
+    protected function translateTarget(array $config)
+    {
+        if (empty($config['dirname'])) {
+            throw new Exception('invalid target: dirname has to be configured');
+        }
+        if (empty($config['filename'])) {
+            throw new Exception('invalid target: filename has to be configured');
+        }
+        $dirname     = $config['dirname'];
+        $filename    = $config['filename'];
+        $compression = !empty($config['compression']) ? $config['compression'] : null;
+
+        return new Target($dirname, $filename, $compression);
+    }
+
+    /**
+     * Adds a sync configuration to the given backup configuration.
+     *
+     * @param \phpbu\App\Configuration\Backup $backup
+     * @param array                           $conf
+     */
+    protected function addSyncIfConfigured(Configuration\Backup $backup, array $conf)
+    {
+        if (isset($conf['sync'])) {
+            $backup->addSync(
+                new Configuration\Backup\Sync(
+                    'laravel-storage',
+                    false,
+                    [
+                        'filesystem' => $conf['sync']['filesystem'],
+                        'path'       => $conf['sync']['path']
+                    ]
+                )
+            );
+        }
+    }
+
+    /**
+     * Adds a cleanup configuration to the given backup configuration.
+     *
+     * @param \phpbu\App\Configuration\Backup $backup
+     * @param array                           $conf
+     */
+    protected function addCleanupIfConfigured(Configuration\Backup $backup, array $conf)
+    {
+        if (isset($conf['cleanup'])) {
+            $backup->setCleanup(
+                new Configuration\Backup\Cleanup(
+                    $conf['cleanup']['type'],
+                    false,
+                    $conf['cleanup']['options']
+                )
+            );
+        }
     }
 }
