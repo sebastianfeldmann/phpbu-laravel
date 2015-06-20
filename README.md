@@ -5,6 +5,7 @@ Laravel backup package - integrates phpbu with the laravel artisan command line 
 [![License](https://poser.pugx.org/phpbu/phpbu-laravel/license.svg)](https://packagist.org/packages/phpbu/phpbu-laravel)
 [![Build Status](https://travis-ci.org/sebastianfeldmann/phpbu-laravel.svg?branch=master)](https://travis-ci.org/sebastianfeldmann/phpbu-laravel)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sebastianfeldmann/phpbu-laravel/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sebastianfeldmann/phpbu-laravel/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/sebastianfeldmann/phpbu-laravel/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/sebastianfeldmann/phpbu-laravel/?branch=master)
 
 ## Requirements
 * PHP 5.5
