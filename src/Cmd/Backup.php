@@ -2,6 +2,12 @@
 namespace phpbu\Laravel\Cmd;
 
 use Illuminate\Console\Command;
+use phpbu\App\Configuration as PhpbuConfig;
+use phpbu\App\Factory;
+use phpbu\App\Runner;
+use phpbu\Laravel\Configuration;
+use phpbu\Laravel\Configuration\Translator;
+use phpbu\Laravel\Configuration\Proxy;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
@@ -30,15 +36,69 @@ class Backup extends Command
     protected $description = 'Execute the backup';
 
     /**
+     * phpbu App runner.
+     *
+     * @var \phpbu\App\Runner
+     */
+    private $runner;
+
+    /**
+     * @var \phpbu\Laravel\Configuration\Proxy
+     */
+    private $configProxy;
+
+    /**
+     * Constructor.
+     *
+     * @param \phpbu\App\Runner                  $runner      Runner to execute the backups
+     * @param \phpbu\Laravel\Configuration\Proxy $configProxy Laravel configuration proxy
+     */
+    public function __construct(Runner $runner, Proxy $configProxy)
+    {
+        $this->runner      = $runner;
+        $this->configProxy = $configProxy;
+
+        parent::__construct();
+    }
+
+    /**
      * Execute the console command.
      *
      * @return boolean
+     * @throws \Exception
      */
     public function fire()
     {
-        $this->info('phpbu - backup start');
-        $this->info('phpbu - backup end');
-        return true;
+        $configuration   = null;
+        $phpbuConfigFile = $this->configProxy->get('phpbu.phpbu');
+        // use a good old phpbu config file?
+        if (!empty($phpbuConfigFile)) {
+            // dummy code
+            // TODO: use LoaderFactory to get the right config file loader to create a valid phpbu configuration
+            $configuration = new PhpbuConfig();
+
+        } else {
+            Factory::register('sync', 'laravel-storage', '\\phpbu\\Laravel\\Backup\\Sync\\LaravelStorage');
+            $translator    = new Translator();
+            $configuration = $translator->translate($this->configProxy);
+        }
+
+        // add the command printer for some output
+        $configuration->addLogger($this->createPrinter());
+
+        $result = $this->runner->run($configuration);
+
+        return $result->wasSuccessful();
+    }
+
+    /**
+     * @return \phpbu\Laravel\Cmd\Printer
+     */
+    protected function createPrinter()
+    {
+        $verbose = $this->option('phpbu-verbose');
+        $debug   = $this->option('phpbu-debug');
+        return new Printer($this, $verbose, $debug);
     }
 
     /**
@@ -49,8 +109,8 @@ class Backup extends Command
     protected function getOptions()
     {
         return array(
-            array('option1', null, InputOption::VALUE_NONE, 'option without value.'),
-            array('option2', null, InputOption::VALUE_REQUIRED, 'option with required value'),
+            array('phpbu-verbose', null, InputOption::VALUE_NONE, 'Output more verbose information.'),
+            array('phpbu-debug', null, InputOption::VALUE_NONE, 'Display debugging information during backup generation.'),
         );
     }
 }
