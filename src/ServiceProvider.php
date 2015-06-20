@@ -2,7 +2,6 @@
 namespace phpbu\Laravel;
 
 use Illuminate\Support\ServiceProvider as ServiceProviderLaravel;
-
 use phpbu\Laravel\Configuration\Proxy;
 
 /**

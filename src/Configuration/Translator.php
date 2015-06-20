@@ -5,7 +5,7 @@ use phpbu\App\Configuration;
 use phpbu\App\Configuration\Backup\Target;
 
 /**
- * Class Interpreter
+ * Class Translator
  *
  * @package    phpbu\Laravel
  * @author     Sebastian Feldmann <sebastian@phpbu.de>
@@ -39,7 +39,6 @@ class Translator
 
         foreach ($laravelPhpbu['databases'] as $db) {
             $configuration->addBackup($this->databaseConfigToBackup($db));
-
         }
 
         return $configuration;

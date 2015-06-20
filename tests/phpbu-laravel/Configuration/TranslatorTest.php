@@ -1,7 +1,15 @@
 <?php
 namespace phpbu\Laravel\Configuration;
 
-
+/**
+ * Class TranslatorTest
+ *
+ * @package    phpbu\Laravel
+ * @author     Sebastian Feldmann <sebastian@phpbu.de>
+ * @copyright  Sebastian Feldmann <sebastian@phpbu.de>
+ * @license    http://www.opensource.org/licenses/MIT The MIT License (MIT)
+ * @link       http://phpbu.de/
+ */
 class TranslatorTest extends \PHPUnit_Framework_TestCase
 {
     /**

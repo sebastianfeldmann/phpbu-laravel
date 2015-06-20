@@ -1,6 +1,15 @@
 <?php
 namespace phpbu\Laravel\Configuration;
 
+/**
+ * Class Proxy
+ *
+ * @package    phpbu\Laravel
+ * @author     Sebastian Feldmann <sebastian@phpbu.de>
+ * @copyright  Sebastian Feldmann <sebastian@phpbu.de>
+ * @license    http://www.opensource.org/licenses/MIT The MIT License (MIT)
+ * @link       http://phpbu.de/
+ */
 class Proxy
 {
     /**
