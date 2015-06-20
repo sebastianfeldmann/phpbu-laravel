@@ -11,5 +11,9 @@ before_script:
 script:
   - phpunit
 
+after_success:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover clover.xml
+
 notifications:
   email: false
