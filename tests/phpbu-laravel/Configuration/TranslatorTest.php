@@ -24,4 +24,74 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(2, count($backups));
     }
+
+    /**
+     * Tests Translator::translate
+     *
+     * @expectedException \phpbu\Laravel\Configuration\Exception
+     */
+    public function testInvalidTargetNoDirname()
+    {
+        $config = require __DIR__ . '/../../_files/config.minimal.php';
+        unset($config['phpbu']['directories'][0]['target']['dirname']);
+
+        $translator = new Translator();
+        $translator->translate(new Proxy($config));
+    }
+
+    /**
+     * Tests Translator::translate
+     *
+     * @expectedException \phpbu\Laravel\Configuration\Exception
+     */
+    public function testInvalidTargetNoFilename()
+    {
+        $config = require __DIR__ . '/../../_files/config.minimal.php';
+        unset($config['phpbu']['directories'][0]['target']['filename']);
+
+        $translator = new Translator();
+        $translator->translate(new Proxy($config));
+    }
+
+    /**
+     * Tests Translator::translate
+     *
+     * @expectedException \phpbu\Laravel\Configuration\Exception
+     */
+    public function testInvalidDatabaseConnection()
+    {
+        $config = require __DIR__ . '/../../_files/config.minimal.php';
+        unset($config['database']['connections']['mysql']);
+
+        $translator = new Translator();
+        $translator->translate(new Proxy($config));
+    }
+
+    /**
+     * Tests Translator::translate
+     *
+     * @expectedException \phpbu\Laravel\Configuration\Exception
+     */
+    public function testInvalidDatabaseDriver()
+    {
+        $config = require __DIR__ . '/../../_files/config.minimal.php';
+        $config['database']['connections']['mysql']['driver'] = 'pgsql';
+
+        $translator = new Translator();
+        $translator->translate(new Proxy($config));
+    }
+
+    /**
+     * Tests Translator::translate
+     */
+    public function testTranslateComplete()
+    {
+        $config        = require __DIR__ . '/../../_files/config.complete.php';
+        $translator    = new Translator();
+        $configuration = $translator->translate(new Proxy($config));
+        $backups       = $configuration->getBackups();
+
+        $this->assertEquals(2, count($backups));
+        $this->assertEquals('storage/uploads', $backups[0]->getName());
+    }
 }
