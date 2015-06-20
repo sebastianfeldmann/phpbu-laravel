@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.4/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.7/phpunit.xsd"
          bootstrap="tests/bootstrap.php"
          backupGlobals="false"
-         verbose="true">
+         verbose="false">
   <testsuites>
     <testsuite name="phpbu-laravel">
       <directory>tests/phpbu-laravel</directory>
@@ -15,7 +15,7 @@
     </blacklist>
   </filter>
   <logging>
-    <log type="coverage-html" target="build/coverage" title="PHPBU-Laravel" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35" highLowerBound="70" />
+    <log type="coverage-html" target="build/coverage" lowUpperBound="35" highLowerBound="70" />
     <log type="junit" target="build/logs/junit.xml" logIncompleteSkipped="false" />
   </logging>
 </phpunit>
