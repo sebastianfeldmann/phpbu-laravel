@@ -32,10 +32,23 @@ class PrinterTest extends \PHPUnit_Framework_TestCase
      */
     public function testWriteColored()
     {
-        // TODO: test colored write
+        $command = $this->getMockBuilder('\\phpbu\\Laravel\\Cmd\\Backup')
+                        ->disableOriginalConstructor()
+                        ->getMock();
+        $command->expects($this->once())
+                ->method('info');
+
         // create printer with active debug
+        $printer = new Printer($command, false, true);
+
         // create backup failed event mock
+        $event = $this->getMockBuilder('\\phpbu\\App\\Event\\Backup\\Failed')
+                      ->disableOriginalConstructor()
+                      ->getMock();
+
         // call event handler to trigger colored write
+        $printer->onBackupFailed($event);
+
         $this->assertTrue(true);
     }
 }
