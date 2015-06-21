@@ -9,16 +9,19 @@ return [
     | configuration file below.
     |
     */
+
+    // no directories to backup
     // keep at least the empty array 'directories' => []
+
     'directories' => [
         [
             'source' => [
-                'path'    => 'storage/uploads',
+                'path'    => storage_path('app'),
                 'options' => [],
             ],
             'target' => [
-                'dirname'     => 'storage/backup/uploads',
-                'filename'    => 'dir.tar',
+                'dirname'     => storage_path('/backup/app'),
+                'filename'    => 'app-%Y%M%D.tar',
                 'compression' => 'bzip2',
             ],
             'sync' => [
@@ -27,7 +30,10 @@ return [
             ]
         ]
     ],
+
+    // no databases to backup
     // keep at least the empty array 'databases' => []
+
     'databases' => [
         [
             'source' => [
@@ -35,26 +41,29 @@ return [
                 'options'    => []
             ],
             'target' => [
-                'dirname'     => 'storage/backup/db',
-                'filename'    => 'dump.sql',
+                'dirname'     => storage_path('backup/db'),
+                'filename'    => 'dump-%Y%M%D.sql',
                 'compression' => 'bzip2',
             ],
             'sync' => [
-                'filesystem' => 'dropbox',
+                'filesystem' => 's3',
                 'path'       => '/backup/db',
             ]
         ],
     ],
+    'config' => __FILE__,
+
     /*
     |--------------------------------------------------------------------------
     | phpbu configuration
     |--------------------------------------------------------------------------
     |
-    | If you want to use a phpbu.xml or phpbu.json configuration
-    | put a path in here pointing to the phpbu configuration file.
-    | This is deactivated by default so you can use the config above
-    | to set up you backups.
-    |
+    | Path to a valid phpbu configuration file.
+    | You can use a phpbu.xml or phpbu.json configuration.
+    | If you use one of those the configuration above will be ignored.
+    | This is deactivated by default so you can setup your backup using
+    | the configuration above
     */
+
     'phpbu' => null,
 ];
