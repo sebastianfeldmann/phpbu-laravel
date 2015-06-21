@@ -42,8 +42,9 @@ class Translator
     public function translate(Proxy $proxy)
     {
         $this->proxy   = $proxy;
-        $configuration = new Configuration();
         $laravelPhpbu  = $this->proxy->get('phpbu');
+        $configuration = new Configuration(realpath(dirname($laravelPhpbu['config']) . '/..'));
+        $configuration->setFilename($laravelPhpbu['config']);
 
         // walk the the configured backups
         foreach ($this->types as $type => $translationMethod) {
