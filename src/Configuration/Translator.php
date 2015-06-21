@@ -81,6 +81,7 @@ class Translator
         if (isset($dir['source']['options'])) {
             array_merge($options, $dir['source']['options']);
         }
+        $backup->setSource(new Configuration\Backup\Source('tar', $options));
         return $backup;
     }
 
