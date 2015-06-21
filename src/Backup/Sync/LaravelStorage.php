@@ -46,7 +46,7 @@ class LaravelStorage implements SyncInterface
             throw new Exception('no filesystem configured');
         }
         $this->filesystem = $conf['filesystem'];
-        $this->path       = empty($conf['path']) ? $conf['path'] : '';
+        $this->path       = !empty($conf['path']) ? $conf['path'] : '';
     }
 
     /**
