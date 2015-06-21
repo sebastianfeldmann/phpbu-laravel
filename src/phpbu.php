@@ -21,7 +21,7 @@ return [
             ],
             'target' => [
                 'dirname'     => storage_path('/backup/app'),
-                'filename'    => 'app-%Y%M%D.tar',
+                'filename'    => 'app-%Y%m%d.tar',
                 'compression' => 'bzip2',
             ],
             'sync' => [
@@ -42,7 +42,7 @@ return [
             ],
             'target' => [
                 'dirname'     => storage_path('backup/db'),
-                'filename'    => 'dump-%Y%M%D.sql',
+                'filename'    => 'dump-%Y%m%d.sql',
                 'compression' => 'bzip2',
             ],
             'sync' => [
