@@ -51,7 +51,8 @@ return [
                 ]
             ]
         ],
-        'phpbu' => null
+        'config' => __FILE__,
+        'phpbu'  => null
     ],
     'database' => [
         'connections' => [
