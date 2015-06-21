@@ -1,5 +1,5 @@
 <?php
-namespace phpbu\Larvel\Backup\Source;
+namespace phpbu\Laravel\Backup\Sync;
 
 use Illuminate\Support\Facades\Storage;
 use phpbu\App\Backup\Sync as SyncInterface;
