@@ -22,7 +22,13 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
         $configuration = $translator->translate(new Proxy($config));
         $backups       = $configuration->getBackups();
 
-        $this->assertEquals(2, count($backups));
+        $this->assertCount(2, $backups);
+
+        /** @var \phpbu\App\Configuration\Backup $backup */
+        foreach ($backups as $backup) {
+            $this->assertInstanceOf('\\phpbu\\App\\Configuration\\Backup\\Source', $backup->getSource());
+            $this->assertInstanceOf('\\phpbu\\App\\Configuration\\Backup\\Target', $backup->getTarget());
+        }
     }
 
     /**
