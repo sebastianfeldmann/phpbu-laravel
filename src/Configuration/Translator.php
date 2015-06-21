@@ -43,7 +43,7 @@ class Translator
     {
         $this->proxy   = $proxy;
         $laravelPhpbu  = $this->proxy->get('phpbu');
-        $configuration = new Configuration(realpath(dirname($laravelPhpbu['config']) . '/..'));
+        $configuration = new Configuration();
         $configuration->setFilename($laravelPhpbu['config']);
 
         // walk the the configured backups
