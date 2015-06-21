@@ -52,6 +52,7 @@ class Translator
                 $backup = $this->{$translationMethod}($conf);
                 $backup->setTarget($this->translateTarget($conf['target']));
 
+                $this->addChecksIfConfigured($backup, $conf);
                 $this->addSyncIfConfigured($backup, $conf);
                 $this->addCleanupIfConfigured($backup, $conf);
 
@@ -155,6 +156,24 @@ class Translator
         $compression = !empty($config['compression']) ? $config['compression'] : null;
 
         return new Target($dirname, $filename, $compression);
+    }
+
+    /**
+     * Adds a check configuration to the given backup configuration.
+     *
+     * @param \phpbu\App\Configuration\Backup $backup
+     * @param array                           $conf
+     */
+    protected function addChecksIfConfigured(Configuration\Backup $backup, array $conf)
+    {
+        if (isset($conf['check'])) {
+            $backup->addCheck(
+                new Configuration\Backup\Check(
+                    $conf['check']['type'],
+                    $conf['check']['value']
+                )
+            );
+        }
     }
 
     /**
