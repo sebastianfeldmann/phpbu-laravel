@@ -97,7 +97,15 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
         $configuration = $translator->translate(new Proxy($config));
         $backups       = $configuration->getBackups();
 
-        $this->assertEquals(2, count($backups));
+        $this->assertCount(2, $backups);
         $this->assertEquals('storage/uploads', $backups[0]->getName());
+
+        /** @var \phpbu\App\Configuration\Backup $backup */
+        foreach ($backups as $backup) {
+            foreach ($backup->getChecks() as $check) {
+                $this->assertInstanceOf('\\phpbu\\App\\Configuration\\Backup\\Check', $check);
+            }
+            $this->assertInstanceOf('\\phpbu\\App\\Configuration\\Backup\\Cleanup', $backup->getCleanup());
+        }
     }
 }

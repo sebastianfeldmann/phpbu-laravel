@@ -14,6 +14,10 @@ return [
                     'filename'    => 'dir.tar',
                     'compression' => 'bzip2'
                 ],
+                'check' => [
+                    'type'  => 'MinSize',
+                    'value' => '10B',
+                ],
                 'sync' => [
                     'filesystem' => 'local',
                     'path'       => '/backups/files'
@@ -38,6 +42,10 @@ return [
                     'dirname'     => 'storage/backup/db',
                     'filename'    => 'dump.sql',
                     'compression' => 'bzip2',
+                ],
+                'check' => [
+                    'type'  => 'MinSize',
+                    'value' => '10B',
                 ],
                 'sync' => [
                     'filesystem' => 's3',
