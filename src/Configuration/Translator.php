@@ -46,22 +46,46 @@ class Translator
         $configuration = new Configuration();
         $configuration->setFilename($laravelPhpbu['config']);
 
-        // walk the the configured backups
-        foreach ($this->types as $type => $translationMethod) {
-            // create a phpbu backup config
-            foreach ($laravelPhpbu[$type] as $conf) {
-                $backup = $this->{$translationMethod}($conf);
-                $backup->setTarget($this->translateTarget($conf['target']));
-
-                $this->addChecksIfConfigured($backup, $conf);
-                $this->addSyncIfConfigured($backup, $conf);
-                $this->addCleanupIfConfigured($backup, $conf);
-
-                $configuration->addBackup($backup);
-            }
-        }
+        $this->addBackups($configuration, $laravelPhpbu);
 
         return $configuration;
+    }
+
+    /**
+     * Translate and add all configured backups.
+     *
+     * @param \phpbu\App\Configuration $configuration
+     * @param array                    $laravelPhpbu
+     */
+    protected function addBackups(Configuration $configuration, array $laravelPhpbu)
+    {
+        // walk the the configured backups
+        foreach (array_keys($this->types) as $type) {
+            foreach ($laravelPhpbu[$type] as $conf) {
+                // create and add a phpbu backup config
+                $configuration->addBackup($this->translateBackup($type, $conf));
+            }
+        }
+    }
+
+    /**
+     * Translates a given laravel config type to a phpbu backup configuration.
+     *
+     * @param  string $type
+     * @param  array  $conf
+     * @throws \phpbu\Laravel\Configuration\Exception
+     * @return \phpbu\App\Configuration\Backup
+     */
+    public function translateBackup($type, array $conf)
+    {
+        $backup = $this->{$this->types[$type]}($conf);
+        $backup->setTarget($this->translateTarget($conf['target']));
+
+        $this->addChecksIfConfigured($backup, $conf);
+        $this->addSyncIfConfigured($backup, $conf);
+        $this->addCleanupIfConfigured($backup, $conf);
+
+        return $backup;
     }
 
     /**
