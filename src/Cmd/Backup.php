@@ -65,24 +65,12 @@ class Backup extends Command
     /**
      * Execute the console command.
      *
-     * @return boolean
      * @throws \Exception
+     * @return bool
      */
     public function fire()
     {
-        // check if a phpbu xml/json config file is configured
-        $phpbuConfigFile = $this->configProxy->get('phpbu.phpbu');
-        if (!empty($phpbuConfigFile)) {
-            // load xml or json configurations
-            $configLoader  = PhpbuConfigLoaderFactory::createLoader($phpbuConfigFile);
-            $configuration = $configLoader->getConfiguration();
-        } else {
-            // no phpbu config so translate the laravel settings
-            $translator    = new Translator();
-            $configuration = $translator->translate($this->configProxy);
-            // in laravel mode we sync everything using the Laravel Storage
-            PhpbuFactory::register('sync', 'laravel-storage', '\\phpbu\\Laravel\\Backup\\Sync\\LaravelStorage');
-        }
+        $configuration = $this->createConfiguration();
 
         // add a printer for some output
         $configuration->addLogger($this->createPrinter());
@@ -94,6 +82,31 @@ class Backup extends Command
     }
 
     /**
+     * Creates a phpbu configuration.
+     *
+     * @return \phpbu\App\Configuration
+     */
+    protected function createConfiguration()
+    {
+        // check if a phpbu xml/json config file is configured
+        $phpbuConfigFile = $this->configProxy->get('phpbu.phpbu');
+        if (!empty($phpbuConfigFile)) {
+            // load xml or json configurations
+            $configLoader  = PhpbuConfigLoaderFactory::createLoader($phpbuConfigFile);
+            $configuration = $configLoader->getConfiguration();
+        } else {
+            // no phpbu config so translate the laravel settings
+            $translator    = new Translator();
+            $configuration = $translator->translate($this->configProxy);
+            // in laravel mode we sync everything using the Laravel Filesystems
+            PhpbuFactory::register('sync', 'laravel-storage', '\\phpbu\\Laravel\\Backup\\Sync\\LaravelStorage');
+        }
+        return $configuration;
+    }
+
+    /**
+     * Create a logger/printer to do some output.
+     *
      * @return \phpbu\Laravel\Cmd\Printer
      */
     protected function createPrinter()
