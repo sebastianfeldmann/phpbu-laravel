@@ -37,7 +37,7 @@ class ServiceProvider extends ServiceProviderLaravel
      */
     public function register()
     {
-        $this->app->bind(Proxy::class, function ($app) {
+        $this->app->bind(Proxy::class, function($app) {
             return new Proxy($app['config']->all());
         });
 
