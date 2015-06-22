@@ -35,7 +35,7 @@ class Proxy
      *
      * @param  string $key
      * @throws \phpbu\Laravel\Configuration\Exception
-     * @return array
+     * @return mixed
      */
     public function get($key = null)
     {
