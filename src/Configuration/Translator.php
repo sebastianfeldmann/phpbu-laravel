@@ -78,6 +78,7 @@ class Translator
      */
     public function translateBackup($type, array $conf)
     {
+        /** @var \phpbu\App\Configuration\Backup $backup */
         $backup = $this->{$this->types[$type]}($conf);
         $backup->setTarget($this->translateTarget($conf['target']));
 
