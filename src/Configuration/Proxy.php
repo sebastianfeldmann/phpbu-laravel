@@ -30,6 +30,39 @@ class Proxy
     }
 
     /**
+     * Returns true if a all keys exist false otherwise.
+     *
+     * @param  array $keys
+     * @return bool
+     */
+    public function keysExist(array $keys)
+    {
+        foreach ($keys as $key) {
+            if (!$this->keyExists($key)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks if a key exists.
+     *
+     * @param  string $key
+     * @return bool
+     */
+    public function keyExists($key)
+    {
+        $exists = true;
+        try {
+            $this->get($key);
+        } catch (Exception $e) {
+            $exists = false;
+        }
+        return $exists;
+    }
+
+    /**
      * Return config value.
      * Use foo.bar to get $config['foo']['bar']
      *

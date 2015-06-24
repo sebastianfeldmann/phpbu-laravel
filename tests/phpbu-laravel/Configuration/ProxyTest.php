@@ -64,4 +64,28 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
 
         $proxy->get('fiz');
     }
+
+    /**
+     * Tests Proxy::keyExists
+     */
+    public function testKeyExists()
+    {
+        $test  = ['foo' => 'bar'];
+        $proxy = new Proxy($test);
+
+        $this->assertTrue($proxy->keyExists('foo'));
+        $this->assertFalse($proxy->keyExists('false'));
+    }
+
+    /**
+     * Tests Proxy::keysExist
+     */
+    public function testKeysExist()
+    {
+        $test  = ['foo' => 'bar', 'fiz' => ['baz' => 'buz']];
+        $proxy = new Proxy($test);
+
+        $this->assertTrue($proxy->keysExist(['foo', 'fiz.baz']));
+        $this->assertFalse($proxy->keysExist(['fiz', 'buz']));
+    }
 }
