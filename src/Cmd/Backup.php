@@ -95,6 +95,7 @@ class Backup extends Command
             $configLoader  = PhpbuConfigLoaderFactory::createLoader($phpbuConfigFile);
             $configuration = $configLoader->getConfiguration();
         } else {
+            $this->validateConfig();
             // no phpbu config so translate the laravel settings
             $translator    = new Translator();
             $configuration = $translator->translate($this->configProxy);
@@ -102,6 +103,28 @@ class Backup extends Command
             PhpbuFactory::register('sync', 'laravel-storage', '\\phpbu\\Laravel\\Backup\\Sync\\LaravelStorage');
         }
         return $configuration;
+    }
+
+    /**
+     * Make sure we have a valid configuration.
+     *
+     * @throws \phpbu\Laravel\Configuration\Exception
+     */
+    protected function validateConfig()
+    {
+        if (!$this->configProxy->keysExist(
+            [
+                'phpbu.config',
+                'phpbu.directories',
+                'phpbu.databases'
+            ]
+        )) {
+            throw new Configuration\Exception(
+                'invalid configuration' . PHP_EOL .
+                'please use the \'phpbu.php\' configuration file provided by \'phpbu-laravel\'' . PHP_EOL .
+                'for details visit phpbu.de'
+            );
+        }
     }
 
     /**

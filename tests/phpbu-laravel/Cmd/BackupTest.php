@@ -52,6 +52,30 @@ class BackupTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Tests Cmd::fire
+     *
+     * @expectedException \phpbu\Laravel\Configuration\Exception
+     */
+    public function testLaravelStyleInvalidConfig()
+    {
+        // create the mock runner
+        $runner = $this->getMockBuilder('\\phpbu\\App\\Runner')
+                ->disableOriginalConstructor()
+                ->getMock();
+
+        // create a invalid config proxy
+        $proxy   = new Proxy(require __DIR__ . '/../../_files/config.invalid.php');
+
+        // create a command mock so no actual option/argument parsing is done
+        $command = $this->getMockBuilder('\\phpbu\\Laravel\\Cmd\\Backup')
+                        ->setMethods(['option'])
+                        ->setConstructorArgs([$runner, $proxy])
+                        ->getMock();
+
+        $command->fire();
+    }
+
+    /**
+     * Tests Cmd::fire
      */
     public function testFireOkPhpbuStyle()
     {
