@@ -1,5 +1,5 @@
 # phpbu-laravel
-Laravel backup package - integrates phpbu with the laravel artisan command line tool.
+Laravel backup package - integrates [phpbu](https://github.com/sebastianfeldmann/phpbu) with the laravel artisan command line tool.
 
 [![Latest Stable Version](https://poser.pugx.org/phpbu/phpbu-laravel/v/stable.svg)](https://packagist.org/packages/phpbu/phpbu-laravel)
 [![License](https://poser.pugx.org/phpbu/phpbu-laravel/license.svg)](https://packagist.org/packages/phpbu/phpbu-laravel)
@@ -10,7 +10,8 @@ Laravel backup package - integrates phpbu with the laravel artisan command line 
 ## Requirements
 * PHP 5.5
 * Laravel 5.*
-* see phpbu requirements for more details
+* phpbu 2.1.*
+* see [phpbu](https://github.com/sebastianfeldmann/phpbu) requirements for more details
 
 ## Installation
 
@@ -40,7 +41,7 @@ php artisan vendor:publish --provider="phpbu\Laravel\ServiceProvider"
 
 ## Configuration
 
-After publishing the `ServiceProvider` a phpbu configuration file is created in your `config` directory.
+After publishing the `ServiceProvider` a `phpbu.php` configuration file is created in your `config` directory.
 
 ```php
 <?php
@@ -50,8 +51,8 @@ return [
     | laravel configuration
     |--------------------------------------------------------------------------
     |
-    | This is activated as long you don't specify a phpbu
-    | configuration file below.
+    | This is activated as long as you don't specify a phpbu
+    | configuration file at the bottom.
     |
     */
 
@@ -103,7 +104,7 @@ return [
     | phpbu configuration
     |--------------------------------------------------------------------------
     |
-    | Path to a valid phpbu configuration file.
+    | Path to a phpbu configuration file.
     | You can use a phpbu.xml or phpbu.json configuration.
     | If you use one of those the configuration above will be ignored.
     | This is deactivated by default so you can setup your backup using

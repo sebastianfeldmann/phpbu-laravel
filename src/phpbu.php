@@ -5,8 +5,8 @@ return [
     | laravel configuration
     |--------------------------------------------------------------------------
     |
-    | This is activated as long you don't specify a phpbu
-    | configuration file below.
+    | This is activated as long as you don't specify a phpbu
+    | configuration file at the bottom.
     |
     */
 
@@ -58,7 +58,7 @@ return [
     | phpbu configuration
     |--------------------------------------------------------------------------
     |
-    | Path to a valid phpbu configuration file.
+    | Path to a phpbu configuration file.
     | You can use a phpbu.xml or phpbu.json configuration.
     | If you use one of those the configuration above will be ignored.
     | This is deactivated by default so you can setup your backup using
