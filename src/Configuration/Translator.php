@@ -44,7 +44,7 @@ class Translator
         $this->proxy   = $proxy;
         $laravelPhpbu  = $this->proxy->get('phpbu');
         $configuration = new Configuration();
-        $configuration->setFilename($laravelPhpbu['config']);
+        $configuration->setFilename($this->proxy->get('phpbu.config'));
 
         $this->addBackups($configuration, $laravelPhpbu);
 
