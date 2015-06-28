@@ -7,6 +7,33 @@ Laravel backup package - integrates [phpbu](https://github.com/sebastianfeldmann
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sebastianfeldmann/phpbu-laravel/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sebastianfeldmann/phpbu-laravel/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/sebastianfeldmann/phpbu-laravel/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/sebastianfeldmann/phpbu-laravel/?branch=master)
 
+## Features
+
+* Creating backups
+    + ArangoDB
+    + Directories
+    + Elasticsearch
+    + MongoDB
+    + MySQL
+    + Percona XtraBackup
+* Validate backups
+    + Check min size
+    + Comparing with previous backups
+* Encrypting backups
+    + mcrypt
+* Sync backups to other locations
+    + Amazon s3
+    + copy.com
+    + Dropbox
+    + rsync
+    + SFTP
+    + FTP
+    + Softlayer
+* Cleanup your backup location
+    + Delete backups older x
+    + Store only x MB of backups
+    + Keep only last x backups
+
 ## Requirements
 * PHP 5.5
 * Laravel 5.*
