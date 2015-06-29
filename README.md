@@ -1,6 +1,8 @@
 # phpbu-laravel
 Laravel backup package - integrates [phpbu](https://github.com/sebastianfeldmann/phpbu) with the laravel artisan command line tool.
 
+A more detailed documentation can be found in the phpbu [manual](http://phpbu.de/manual/current/en/integrations.html).
+
 [![Latest Stable Version](https://poser.pugx.org/phpbu/phpbu-laravel/v/stable.svg)](https://packagist.org/packages/phpbu/phpbu-laravel)
 [![License](https://poser.pugx.org/phpbu/phpbu-laravel/license.svg)](https://packagist.org/packages/phpbu/phpbu-laravel)
 [![Build Status](https://travis-ci.org/sebastianfeldmann/phpbu-laravel.svg?branch=master)](https://travis-ci.org/sebastianfeldmann/phpbu-laravel)
@@ -10,25 +12,13 @@ Laravel backup package - integrates [phpbu](https://github.com/sebastianfeldmann
 ## Features
 
 * Creating backups
-    + ArangoDB
     + Directories
-    + Elasticsearch
-    + MongoDB
     + MySQL
-    + Percona XtraBackup
 * Validate backups
     + Check min size
     + Comparing with previous backups
-* Encrypting backups
-    + mcrypt
 * Sync backups to other locations
-    + Amazon s3
-    + copy.com
-    + Dropbox
-    + rsync
-    + SFTP
-    + FTP
-    + Softlayer
+    + All Laravel filesystems
 * Cleanup your backup location
     + Delete backups older x
     + Store only x MB of backups
