@@ -30,7 +30,7 @@ class Printer extends PrinterCli
     public function __construct(Command $command, $verbose = false, $debug = false)
     {
         $this->command = $command;
-        parent::__construct(null, $verbose, false, $debug);
+        parent::__construct($verbose, false, $debug);
     }
 
     /**
