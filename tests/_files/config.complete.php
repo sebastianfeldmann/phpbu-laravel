@@ -5,9 +5,7 @@ return [
             [
                 'source' => [
                     'path'    => 'storage/uploads',
-                    'options' => [
-                        'showStdErr' => true
-                    ]
+                    'options' => []
                 ],
                 'target' => [
                     'dirname'     => 'storage/backup/uploads',
@@ -34,9 +32,7 @@ return [
             [
                 'source' => [
                     'connection' => 'mysql',
-                    'options' => [
-                        'showStdErr' => true
-                    ]
+                    'options' => []
                 ],
                 'target' => [
                     'dirname'     => 'storage/backup/db',
