@@ -25,7 +25,7 @@
     "require": {
         "illuminate/support": "5.*",
         "illuminate/console": "5.*",
-        "phpbu/phpbu": "2.1.*"
+        "phpbu/phpbu": "~3.1"
     },
     "extra": {
         "branch-alias": {
