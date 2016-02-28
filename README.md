@@ -27,7 +27,7 @@ A more detailed documentation can be found in the phpbu [manual](http://phpbu.de
 ## Requirements
 * PHP 5.5
 * Laravel 5.*
-* phpbu 2.1.*
+* phpbu 3.*
 * see [phpbu](https://github.com/sebastianfeldmann/phpbu) requirements for more details
 
 ## Installation
@@ -132,3 +132,17 @@ return [
 ];
 
 ```
+
+## Usage
+
+Show command help information.
+
+    php artisan phpbu:backup --help
+    
+Execute the backup,
+
+    php artisan phpbu:backup
+    
+Execute a dry-run without making any changes.
+
+    php artisan phpbu:backup --phpbu-simulate
