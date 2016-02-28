@@ -53,6 +53,31 @@ return [
                         'amount' => '20'
                     ]
                 ]
+            ],
+            [
+                'source' => [
+                    'connection' => 'pgsql',
+                    'options' => []
+                ],
+                'target' => [
+                    'dirname'     => 'storage/backup/db',
+                    'filename'    => 'dump.sql',
+                    'compression' => 'bzip2',
+                ],
+                'check' => [
+                    'type'  => 'MinSize',
+                    'value' => '10B',
+                ],
+                'sync' => [
+                    'filesystem' => 's3',
+                    'path'       => '/backups/db'
+                ],
+                'cleanup' => [
+                    'type' => 'quantity',
+                    'options' => [
+                        'amount' => '20'
+                    ]
+                ]
             ]
         ],
         'config' => __FILE__,
@@ -62,6 +87,13 @@ return [
         'connections' => [
             'mysql' => [
                 'driver'    => 'mysql',
+                'host'      => 'localhost',
+                'database'  => 'test',
+                'username'  => 'root',
+                'password'  => 'secret'
+            ],
+            'pgsql' => [
+                'driver'    => 'pgsql',
                 'host'      => 'localhost',
                 'database'  => 'test',
                 'username'  => 'root',

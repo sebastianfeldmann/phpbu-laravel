@@ -137,7 +137,8 @@ class Translator
         }
 
         $backup = new Configuration\Backup('db-' . $db['source']['connection'], false);
-        $backup->setSource(new Configuration\Backup\Source('mysqldump', $options));
+        $type   = $this->getDatabaseSourceType($connection['driver']);
+        $backup->setSource(new Configuration\Backup\Source($type, $options));
 
         return $backup;
     }
@@ -156,10 +157,22 @@ class Translator
             throw new Exception('Unknown database connection: ' . $connection);
         }
         $config = $connections[$connection];
-        if ($config['driver'] !== 'mysql') {
-            throw new Exception('Currently only MySQL databases are supported using the laravel config');
+        if (!in_array($config['driver'], ['mysql', 'pgsql'])) {
+            throw new Exception('Currently only MySQL and PostgreSQL databases are supported using the laravel config');
         }
         return $config;
+    }
+
+    /**
+     * Map database driver to phpbu source type.
+     *
+     * @param  string $driver
+     * @return string
+     */
+    protected function getDatabaseSourceType($driver)
+    {
+        $types = ['mysql' => 'mysqldump', 'pgsql' => 'pgdump'];
+        return $types[$driver];
     }
 
     /**

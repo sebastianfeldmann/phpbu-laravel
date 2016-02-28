@@ -81,7 +81,7 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
     public function testInvalidDatabaseDriver()
     {
         $config = require __DIR__ . '/../../_files/config.minimal.php';
-        $config['database']['connections']['mysql']['driver'] = 'pgsql';
+        $config['database']['connections']['mysql']['driver'] = 'mongodb';
 
         $translator = new Translator();
         $translator->translate(new Proxy($config));
@@ -97,8 +97,10 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
         $configuration = $translator->translate(new Proxy($config));
         $backups       = $configuration->getBackups();
 
-        $this->assertCount(2, $backups);
+        $this->assertCount(3, $backups);
         $this->assertEquals('storage/uploads', $backups[0]->getName());
+        $this->assertEquals('mysqldump', $backups[1]->getSource()->type);
+        $this->assertEquals('pgdump', $backups[2]->getSource()->type);
 
         /** @var \phpbu\App\Configuration\Backup $backup */
         foreach ($backups as $backup) {
