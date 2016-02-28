@@ -43,7 +43,7 @@ class BackupTest extends \PHPUnit_Framework_TestCase
                         ->setMethods(['option'])
                         ->setConstructorArgs([$runner, $proxy])
                         ->getMock();
-        $command->expects($this->exactly(2))
+        $command->expects($this->exactly(4))
                 ->method('option')
                 ->willReturn(false);
 
@@ -103,7 +103,7 @@ class BackupTest extends \PHPUnit_Framework_TestCase
                         ->setMethods(['option'])
                         ->setConstructorArgs([$runner, $proxy])
                         ->getMock();
-        $command->expects($this->exactly(2))
+        $command->expects($this->exactly(3))
                 ->method('option')
                 ->willReturn(false);
 
