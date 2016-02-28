@@ -40,7 +40,7 @@ class LaravelStorage implements Simulator
      * @param  array $conf
      * @throws \phpbu\App\Exception
      */
-    public function setup(array $conf = array())
+    public function setup(array $conf = [])
     {
         if (empty($conf['filesystem'])) {
             throw new Exception('no filesystem configured');
