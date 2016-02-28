@@ -135,9 +135,10 @@ class Backup extends Command
      */
     protected function createPrinter()
     {
-        $verbose = (bool) $this->option('phpbu-verbose');
-        $debug   = (bool) $this->option('phpbu-debug');
-        return new Printer($this, $verbose, $debug);
+        $verbose  = (bool) $this->option('phpbu-verbose');
+        $debug    = (bool) $this->option('phpbu-debug');
+        $simulate = (bool) $this->option('phpbu-simulate');
+        return new Printer($this, $verbose, ($debug || $simulate));
     }
 
     /**
