@@ -106,7 +106,7 @@ class Translator
 
         // check for configuration options
         if (isset($dir['source']['options'])) {
-            array_merge($options, $dir['source']['options']);
+            $options = array_merge($options, $dir['source']['options']);
         }
         $backup->setSource(new Configuration\Backup\Source('tar', $options));
         return $backup;
@@ -133,7 +133,7 @@ class Translator
 
         // check for configuration options
         if (isset($db['source']['options'])) {
-            array_merge($options, $db['source']['options']);
+            $options = array_merge($options, $db['source']['options']);
         }
 
         $backup = new Configuration\Backup('db-' . $db['source']['connection'], false);
