@@ -99,6 +99,7 @@ class Backup extends Command
             // no phpbu config so translate the laravel settings
             $translator    = new Translator();
             $configuration = $translator->translate($this->configProxy);
+            $configuration->setSimulate((bool) $this->option('phpbu-simulate'));
             // in laravel mode we sync everything using the Laravel Filesystems
             PhpbuFactory::register('sync', 'laravel-storage', '\\phpbu\\Laravel\\Backup\\Sync\\LaravelStorage');
         }
@@ -146,9 +147,10 @@ class Backup extends Command
      */
     protected function getOptions()
     {
-        return array(
+        return [
+            ['phpbu-simulate', null, InputOption::VALUE_NONE, 'Perform a trial run with no changes made.'],
             ['phpbu-verbose', null, InputOption::VALUE_NONE, 'Output more verbose information.'],
             ['phpbu-debug', null, InputOption::VALUE_NONE, 'Display debugging information during backup generation.'],
-        );
+        ];
     }
 }
