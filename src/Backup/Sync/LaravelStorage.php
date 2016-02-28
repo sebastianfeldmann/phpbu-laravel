@@ -2,7 +2,7 @@
 namespace phpbu\Laravel\Backup\Sync;
 
 use Illuminate\Support\Facades\Storage;
-use phpbu\App\Backup\Sync as SyncInterface;
+use phpbu\App\Backup\Sync\Simulator;
 use phpbu\App\Backup\Target;
 use phpbu\App\Exception;
 use phpbu\App\Result;
@@ -18,7 +18,7 @@ use phpbu\App\Result;
  * @license    http://www.opensource.org/licenses/MIT The MIT License (MIT)
  * @link       http://phpbu.de/
  */
-class LaravelStorage implements SyncInterface
+class LaravelStorage implements Simulator
 {
     /**
      * Laravel filesystem to sync to.
@@ -68,6 +68,20 @@ class LaravelStorage implements SyncInterface
         $storage->getDriver()->writeStream(
             $this->path . '/' . $target->getFilename(),
             fopen($target->getPathname(), 'r+')
+        );
+    }
+
+    /**
+     * Simulate the sync execution.
+     *
+     * @param \phpbu\App\Backup\Target $target
+     * @param \phpbu\App\Result        $result
+     */
+    public function simulate(Target $target, Result $result)
+    {
+        $result->debug(
+            'sync backup to ' . $this->filesystem . PHP_EOL
+            . ' target path: ' . $this->path
         );
     }
 }
