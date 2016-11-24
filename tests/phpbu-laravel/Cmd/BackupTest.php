@@ -80,6 +80,10 @@ class BackupTest extends \PHPUnit_Framework_TestCase
     public function testFireOkPhpbuStyle()
     {
         // create the result mok that is returned by the mock runner
+        $factory = $this->getMockBuilder('\\phpbu\\App\Factory')
+                        ->disableOriginalConstructor()
+                        ->getMock();
+
         $result = $this->getMockBuilder('\\phpbu\\App\Result')
                        ->disableOriginalConstructor()
                        ->getMock();
@@ -94,6 +98,9 @@ class BackupTest extends \PHPUnit_Framework_TestCase
         $runner->expects($this->once())
                ->method('run')
                ->willReturn($result);
+        $runner->expects($this->once())
+               ->method('getFactory')
+               ->willReturn($factory);
 
         // create a valid config proxy
         $proxy   = new Proxy(require __DIR__ . '/../../_files/config.phpbu.php');

@@ -93,7 +93,7 @@ class Backup extends Command
         if (!empty($phpbuConfigFile)) {
             // load xml or json configurations
             $configLoader  = PhpbuConfigLoaderFactory::createLoader($phpbuConfigFile);
-            $configuration = $configLoader->getConfiguration();
+            $configuration = $configLoader->getConfiguration($this->runner->getFactory());
         } else {
             $this->validateConfig();
             // no phpbu config so translate the laravel settings
