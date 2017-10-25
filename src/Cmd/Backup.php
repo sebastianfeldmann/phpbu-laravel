@@ -2,7 +2,6 @@
 namespace phpbu\Laravel\Cmd;
 
 use Illuminate\Console\Command;
-use phpbu\App\Configuration as PhpbuConfig;
 use phpbu\App\Configuration\Loader\Factory as PhpbuConfigLoaderFactory;
 use phpbu\App\Factory as PhpbuFactory;
 use phpbu\App\Runner;

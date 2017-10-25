@@ -25,11 +25,11 @@
     "require": {
         "illuminate/support": "5.*",
         "illuminate/console": "5.*",
-        "phpbu/phpbu": "~4.0"
+        "phpbu/phpbu": "~5.0"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-master": "2.0.x-dev"
         }
     }
 }

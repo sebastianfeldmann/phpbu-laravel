@@ -25,9 +25,9 @@ A more detailed documentation can be found in the phpbu [manual](http://phpbu.de
     + Keep only last x backups
 
 ## Requirements
-* PHP 5.5
+* PHP 7.0
 * Laravel 5.*
-* phpbu 3.*
+* phpbu 5.*
 * see [phpbu](https://github.com/sebastianfeldmann/phpbu) requirements for more details
 
 ## Installation
@@ -115,7 +115,7 @@ return [
         ],
     ],
     'config' => __FILE__,
-    
+
     /*
     |--------------------------------------------------------------------------
     | phpbu configuration
@@ -138,11 +138,11 @@ return [
 Show command help information.
 
     php artisan phpbu:backup --help
-    
+
 Execute the backup,
 
     php artisan phpbu:backup
-    
+
 Execute a dry-run without making any changes.
 
     php artisan phpbu:backup --phpbu-simulate
