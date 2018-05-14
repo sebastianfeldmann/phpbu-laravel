@@ -1,7 +1,7 @@
 <?php
 namespace phpbu\Laravel\Backup\Sync;
 
-class LaravelStorageTest extends \PHPUnit_Framework_TestCase
+class LaravelStorageTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Tests LaravelStorage::sync

@@ -10,7 +10,7 @@ namespace phpbu\Laravel\Cmd;
  * @license    http://www.opensource.org/licenses/MIT The MIT License (MIT)
  * @link       http://phpbu.de/
  */
-class PrinterTest extends \PHPUnit_Framework_TestCase
+class PrinterTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Tests Printer::write

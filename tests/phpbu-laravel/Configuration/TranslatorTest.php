@@ -10,7 +10,7 @@ namespace phpbu\Laravel\Configuration;
  * @license    http://www.opensource.org/licenses/MIT The MIT License (MIT)
  * @link       http://phpbu.de/
  */
-class TranslatorTest extends \PHPUnit_Framework_TestCase
+class TranslatorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Tests Translator::translate
