@@ -81,6 +81,15 @@ class Backup extends Command
     }
 
     /**
+     * @throws \Exception
+     * @return bool
+     */
+    public function handle()
+    {
+        return $this->fire();
+    }
+
+    /**
      * Creates a phpbu configuration.
      *
      * @return \phpbu\App\Configuration
