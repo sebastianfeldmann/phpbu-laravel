@@ -47,7 +47,7 @@ class BackupTest extends \PHPUnit\Framework\TestCase
                 ->method('option')
                 ->willReturn(false);
 
-        $this->assertTrue($command->fire());
+        $this->assertTrue($command->handle());
     }
 
     /**
@@ -71,7 +71,7 @@ class BackupTest extends \PHPUnit\Framework\TestCase
                         ->setConstructorArgs([$runner, $proxy])
                         ->getMock();
 
-        $command->fire();
+        $command->handle();
     }
 
     /**
@@ -114,6 +114,6 @@ class BackupTest extends \PHPUnit\Framework\TestCase
                 ->method('option')
                 ->willReturn(false);
 
-        $this->assertTrue($command->fire());
+        $this->assertTrue($command->handle());
     }
 }
