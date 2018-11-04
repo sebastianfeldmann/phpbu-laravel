@@ -85,6 +85,7 @@ class Translator
         $this->addChecksIfConfigured($backup, $conf);
         $this->addSyncIfConfigured($backup, $conf);
         $this->addCleanupIfConfigured($backup, $conf);
+        $this->addCryptIfConfigured($backup, $conf);
 
         return $backup;
     }
@@ -251,6 +252,25 @@ class Translator
                     $conf['cleanup']['type'],
                     false,
                     $conf['cleanup']['options']
+                )
+            );
+        }
+    }
+
+    /**
+     * Adds a encryption configuration to the given encryption configuration.
+     *
+     * @param \phpbu\App\Configuration\Backup $backup
+     * @param array                           $conf
+     */
+    protected function addCryptIfConfigured(Configuration\Backup $backup, array $conf)
+    {
+        if (isset($conf['crypt'])) {
+            $backup->setCrypt(
+                new Configuration\Backup\Crypt(
+                    $conf['crypt']['type'],
+                    false,
+                    $conf['crypt']['options']
                 )
             );
         }
