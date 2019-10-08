@@ -23,8 +23,8 @@
         }
     },
     "require": {
-        "illuminate/support": "5.*",
-        "illuminate/console": "5.*",
+        "illuminate/support": "6.*",
+        "illuminate/console": "6.*",
         "phpbu/phpbu": "~5"
     },
     "extra": {
