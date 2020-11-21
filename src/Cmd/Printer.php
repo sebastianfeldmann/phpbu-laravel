@@ -40,7 +40,7 @@ class Printer extends PrinterCli
      * @param string $color
      * @param string $buffer
      */
-    protected function writeWithColor($color, $buffer)
+    protected function writeWithColor($color, $buffer): void
     {
         $this->write($buffer . PHP_EOL);
     }
@@ -48,7 +48,7 @@ class Printer extends PrinterCli
     /**
      * @param string $buffer
      */
-    public function write($buffer)
+    public function write($buffer): void
     {
         $this->command->info($buffer);
     }
