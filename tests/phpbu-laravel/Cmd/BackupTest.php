@@ -1,6 +1,7 @@
 <?php
 namespace phpbu\Laravel\Cmd;
 
+use phpbu\Laravel\Configuration\Exception;
 use phpbu\Laravel\Configuration\Proxy;
 
 /**
@@ -52,11 +53,10 @@ class BackupTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Tests Cmd::fire
-     *
-     * @expectedException \phpbu\Laravel\Configuration\Exception
      */
     public function testLaravelStyleInvalidConfig()
     {
+        $this->expectException(Exception::class);
         // create the mock runner
         $runner = $this->getMockBuilder('\\phpbu\\App\\Runner')
                 ->disableOriginalConstructor()

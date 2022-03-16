@@ -1,6 +1,8 @@
 <?php
 namespace phpbu\Laravel\Backup\Sync;
 
+use phpbu\App\Exception;
+
 class LaravelStorageTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -16,11 +18,10 @@ class LaravelStorageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Tests LaravelStorage::sync
-     *
-     * @expectedException \phpbu\App\Exception
      */
     public function testSetupFail()
     {
+        $this->expectException(Exception::class);
         $sync = new LaravelStorage();
         $sync->setup(['path' => 'bar']);
     }

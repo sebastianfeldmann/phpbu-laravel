@@ -33,11 +33,10 @@ class TranslatorTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Tests Translator::translate
-     *
-     * @expectedException \phpbu\Laravel\Configuration\Exception
      */
     public function testInvalidTargetNoDirname()
     {
+        $this->expectException(Exception::class);
         $config = require __DIR__ . '/../../_files/config.minimal.php';
         unset($config['phpbu']['directories'][0]['target']['dirname']);
 
@@ -47,11 +46,10 @@ class TranslatorTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Tests Translator::translate
-     *
-     * @expectedException \phpbu\Laravel\Configuration\Exception
      */
     public function testInvalidTargetNoFilename()
     {
+        $this->expectException(Exception::class);
         $config = require __DIR__ . '/../../_files/config.minimal.php';
         unset($config['phpbu']['directories'][0]['target']['filename']);
 
@@ -61,11 +59,10 @@ class TranslatorTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Tests Translator::translate
-     *
-     * @expectedException \phpbu\Laravel\Configuration\Exception
      */
     public function testInvalidDatabaseConnection()
     {
+        $this->expectException(Exception::class);
         $config = require __DIR__ . '/../../_files/config.minimal.php';
         unset($config['database']['connections']['mysql']);
 
@@ -75,11 +72,10 @@ class TranslatorTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Tests Translator::translate
-     *
-     * @expectedException \phpbu\Laravel\Configuration\Exception
      */
     public function testInvalidDatabaseDriver()
     {
+        $this->expectException(Exception::class);
         $config = require __DIR__ . '/../../_files/config.minimal.php';
         $config['database']['connections']['mysql']['driver'] = 'mongodb';
 
