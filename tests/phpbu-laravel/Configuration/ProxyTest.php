@@ -54,11 +54,10 @@ class ProxyTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Tests Proxy::get
-     *
-     * @expectedException \phpbu\Laravel\Configuration\Exception
      */
     public function testInvalidKey()
     {
+        $this->expectException(Exception::class);
         $test  = ['foo' => 'bar'];
         $proxy = new Proxy($test);
 
